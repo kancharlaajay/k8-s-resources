@@ -19,7 +19,7 @@ spec:
     spec:
       containers:                   # Defines containers inside each Pod
       - name: nginx-pod             # Name of the container
-        image: nginx                # Docker image to use (from Docker Hub)
+        image: kancharlaajay/deployment:1.0.0               # Docker image to use (from Docker Hub)
         ports:
         - containerPort: 80         # Port exposed inside the container
 ---
