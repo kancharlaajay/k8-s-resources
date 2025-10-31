@@ -22,6 +22,6 @@ metadata:
 spec:
   containers:                  # 'containers' should be plural
   - name: nginx-pod-1
-    image: nginx
+    image: kancharlaajay/deployment:1.0.0
     ports:
     - containerPort: 8080      # Must match targetPort in Service
