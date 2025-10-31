@@ -3,17 +3,16 @@ kind: Service
 metadata:
   name: nginx-service
 spec:
-  selector:      #labels are used as selector
+  selector:                # These labels must match the Pod labels
     project: expense
     component: frontend
     environment: deve
-    version: 1.0.0
+    version: "1.0.0"       # Label values are treated as strings
   ports:
   - protocol: TCP
-    port: 80       #service port
-    targetPort: 80   #container port
-    version: 1.0.0
-  type: ClusterIP
+    port: 80               # Service port (used to access service)
+    targetPort: 80         # Container port (inside Pod)
+  type: ClusterIP           # Default service type
 
 ---
 
@@ -21,14 +20,12 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: nginx-pods
-  lables:
-   project: expense
-   component: frontend
-   environment: deve
-   version: 1.0.0
+  labels:                  # Correct spelling (not 'lables')
+    project: expense
+    component: frontend
+    environment: deve
+    version: "1.0.0"
 spec:
   containers:
   - name: nginx-pod-1
     image: nginx
-
-  

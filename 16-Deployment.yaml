@@ -23,6 +23,7 @@ spec:
         ports:
         - containerPort: 80         # Port exposed inside the container
 ---
+
 apiVersion: v1                      # API version for Service resources
 kind: Service                       # Creating a Service object
 metadata:
