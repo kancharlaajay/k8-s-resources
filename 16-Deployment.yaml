@@ -1,0 +1,40 @@
+apiVersion: apps/v1                 # API version used for Deployment resources
+kind: Deployment                    # We are creating a Deployment object
+metadata:   
+  name: nginx-deployment            # Name of the Deployment
+  labels:                           # Labels attached to the Deployment (for identification)
+    app: frontend                   # Custom label key-value pair
+    tier: web                       # Another label to define app tier (frontend/backend)
+spec:
+  replicas: 3                       # Number of Pod replicas to run (3 Pods)
+  selector:                         # Used by Deployment to identify Pods it manages
+    matchLabels:
+      app: frontend                 # Must match labels in Pod template below
+      tier: web                     # Must match labels in Pod template below
+  template:                         # Template defines how Pods created by Deployment will look
+    metadata:
+      labels:
+        app: frontend               # Pod label (used by Service to connect)
+        tier: web                   # Pod label (used for grouping)
+    spec:
+      containers:                   # Defines containers inside each Pod
+      - name: nginx-pod             # Name of the container
+        image: nginx                # Docker image to use (from Docker Hub)
+        ports:
+        - containerPort: 80         # Port exposed inside the container
+---
+apiVersion: v1                      # API version for Service resources
+kind: Service                       # Creating a Service object
+metadata:
+  name: nginx-lb                    # Name of the Service
+  labels:
+    app: frontend                   # Label for organizing or filtering
+spec:
+  type: LoadBalancer                # Service type — exposes app to external traffic
+  selector:                         # Service will route traffic to Pods with these labels
+    app: frontend                   # Must match Pod labels
+  ports:
+  - protocol: TCP                   # Protocol used (TCP)
+    port: 80                        # Port exposed by the Service (for external clients)
+    targetPort: 80                  # Port inside the Pod (container)
+    nodePort: 30007                 # Specific port opened on each node (for external access)
