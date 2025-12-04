@@ -20,7 +20,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: nginx-pods
-  labels:                  # Correct spelling (not 'lables')
+  labels:                  # These labels must match Service selector
     project: expense
     component: frontend
     environment: deve
